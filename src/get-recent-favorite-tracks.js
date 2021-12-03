@@ -3,7 +3,7 @@ const axios = require("axios");
 const querystring = require("querystring");
 
 /**
- * Send post request to get user's favorite tracks
+ * Send post request to get user's favorite tracks.
  * @param {string} accessToken User's access token frmo the Spotify API or from `refreshAccessToken()`.
  * @returns JSON array of user's favorite tracks.
  */
@@ -11,19 +11,28 @@ async function getRecentFavoriteTracks(accessToken) {
   let data = null;
 
   try {
-    const requestInfo = makeRequestInfo(accessToken);
-    const request = await axios(requestInfo);
+    const request = await makeApiCall(accessToken);
     data = request.data;
   } catch (error) {
     const errorMessage = error.response.data.error.message;
+
     if (errorMessage === "The access token expired") {
       const newAccessToken = await refreshAccessToken();
-      const requestInfo = makeRequestInfo(newAccessToken);
-      const request = await axios(requestInfo);
+      const request = await makeApiCall(newAccessToken);
       data = request.data;
     }
   }
   return data;
+}
+
+/**
+ * Make axios call to get user's favorite tracks.
+ * @param {string} accessToken
+ * @returns Returns axios response.
+ */
+async function makeApiCall(accessToken) {
+  const requestInfo = makeRequestInfo(accessToken);
+  return axios(requestInfo);
 }
 
 /**
