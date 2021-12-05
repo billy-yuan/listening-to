@@ -15,11 +15,6 @@ HttpRequest.prototype = {
     return this;
   },
 
-  addQueryParam: function (param) {
-    this.request.endpoint += param;
-    return this;
-  },
-
   addHeaders: function (headers) {
     for (let key in headers) {
       if (headers.hasOwnProperty(key)) {
