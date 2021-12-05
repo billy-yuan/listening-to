@@ -1,4 +1,5 @@
 const axios = require("axios");
+const querystring = require("querystring");
 
 function HttpRequest(method, url) {
   this.request = {
@@ -28,10 +29,15 @@ HttpRequest.prototype = {
     return this;
   },
 
+  addData: function (data) {
+    this.request.data = querystring.stringify(data);
+    return this;
+  },
+
   execute: async function () {
     return axios(this.request)
       .then((res) => res)
-      .catch((e) => e.response.data);
+      .catch((e) => e.response);
   },
 };
 
