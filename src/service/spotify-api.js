@@ -18,17 +18,19 @@ SpotifyApi.prototype = {
     return this._credentials.access_token;
   },
 
+  setAccessToken: function (accessToken) {
+    this._credentials["access_token"] = accessToken;
+  },
+
   getTopArtists: async function () {
     const httpRequest = new HttpRequest("GET", ENDPOINTS.USER_TRACKS);
 
-    const response = await httpRequest
+    return httpRequest
       .addHeaders({
         Authorization: `Bearer ${this.getAccessToken()}`,
         "Content-Type": "application/json",
       })
       .execute();
-
-    return response;
   },
 
   getAddedTracks: function () {
