@@ -23,7 +23,7 @@ HttpRequest.prototype = {
 
   /**
    *
-   * @param {object} queryParams key-value pairs of query parameters and values.
+   * @param {Object.<string,string>} queryParams key-value pairs of query parameters and values.
    */
   addQueryParams: function (queryParams) {
     for (let key in queryParams) {
