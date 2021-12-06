@@ -42,7 +42,7 @@ HttpRequest.prototype = {
   },
 
   /**
-   * @param {object} headers
+   * @param {Object<string,string>} headers
    * @returns
    */
   addHeaders: function (headers) {
@@ -56,7 +56,7 @@ HttpRequest.prototype = {
 
   /**
    * Adds body parameters.
-   * @param {object} data key-value pairs for the body parameters of the request.
+   * @param {Object<string,string>} data key-value pairs for the body parameters of the request.
    * @returns
    */
   addData: function (data) {
