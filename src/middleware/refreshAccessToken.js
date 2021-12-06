@@ -15,12 +15,11 @@ const data = {
   grant_type: "refresh_token",
 };
 
-async function getAccessToken(req, res, next) {
+async function refreshAccessToken(req, res, next) {
   const httpRequest = new HttpRequest("POST", ENDPOINTS.TOKEN);
   const response = await httpRequest.addHeaders(header).addData(data).execute();
-
   res.locals.response = response.data;
   next();
 }
 
-module.exports = getAccessToken;
+module.exports = refreshAccessToken;
