@@ -8,7 +8,15 @@ const express = require("express"),
   getTopArtists = require("./routes/get-top-artists-route"),
   authorize = require("./routes/get-new-authorization-code"),
   callback = require("./routes/callback"),
+  cors = require("cors"),
   port = process.env.PORT;
+
+// Configure CORS
+// TODO: add production domain to origin array.
+const corsOptions = {
+  origin: ["http://localhost:3000"],
+};
+app.use(cors(corsOptions));
 
 // Add routes
 app.use("/get-recent-favorite-tracks", getRecentFavoriteTracks);
