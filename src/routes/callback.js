@@ -1,6 +1,8 @@
 /**
  * This callback will get a new access token after a user goes through
- * the get-new-authorization-code route.
+ * the get-new-authorization-code route. Note: this is not the same as
+ * refreshing the access. See middleware/refreshAccessToken.js for
+ * refreshing a token)
  * The response is a json with the access token and refresh token.
  * Put both codes in your .env file.
  */

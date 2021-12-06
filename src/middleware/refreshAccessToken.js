@@ -16,6 +16,7 @@ const data = {
 };
 
 async function refreshAccessToken(req, res, next) {
+  // TODO: add a timer so that a refresh request is sent if the expiration time has passed
   const httpRequest = new HttpRequest("POST", ENDPOINTS.TOKEN);
   const response = await httpRequest.addHeaders(header).addData(data).execute();
   res.locals.response = response.data;

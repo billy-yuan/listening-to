@@ -36,6 +36,10 @@ HttpRequest.prototype = {
     return this.request.url + querystring.stringify(this.queryParams);
   },
 
+  /**
+   * @param {object} headers
+   * @returns
+   */
   addHeaders: function (headers) {
     for (let key in headers) {
       if (headers.hasOwnProperty(key)) {
@@ -45,6 +49,11 @@ HttpRequest.prototype = {
     return this;
   },
 
+  /**
+   * Adds body parameters.
+   * @param {object} data key-value pairs for the body parameters of the request.
+   * @returns
+   */
   addData: function (data) {
     this.request.data = querystring.stringify(data);
     return this;
