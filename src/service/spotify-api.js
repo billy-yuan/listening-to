@@ -22,7 +22,7 @@ SpotifyApi.prototype = {
     this._credentials["access_token"] = accessToken;
   },
 
-  getTopArtists: async function () {
+  getUserTracks: async function () {
     const httpRequest = new HttpRequest("GET", ENDPOINTS.USER_TRACKS);
 
     return httpRequest
@@ -33,10 +33,15 @@ SpotifyApi.prototype = {
       .execute();
   },
 
-  getAddedTracks: function () {
-    console.log("get added tracks");
-    const data = "top tracks";
-    return { data };
+  getTopArtists: async function () {
+    const httpRequest = new HttpRequest("GET", ENDPOINTS.TOP_ARTISTS);
+
+    return httpRequest
+      .addHeaders({
+        Authorization: `Bearer ${this.getAccessToken()}`,
+        "Content-Type": "application/json",
+      })
+      .execute();
   },
 };
 

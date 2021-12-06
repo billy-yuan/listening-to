@@ -7,12 +7,33 @@ function HttpRequest(method, url) {
     url,
     headers: {},
   };
+  this.queryParams = {};
 }
 
 HttpRequest.prototype = {
   setUrl: function (url) {
     this.request.url = url;
     return this;
+  },
+
+  /**
+   *
+   * @param {object} queryParams key-value pairs of query parameters and values.
+   */
+  addQueryParams: function (queryParams) {
+    for (let key in queryParams) {
+      if (queryParams.hasOwnProperty(key)) {
+        this.queryParams[key] = queryParams[key];
+      }
+    }
+    return this;
+  },
+
+  /**
+   * Get url string by putting together query params and the request URL.
+   */
+  getUrl: function () {
+    return this.request.url + querystring.stringify(this.queryParams);
   },
 
   addHeaders: function (headers) {
