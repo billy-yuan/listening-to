@@ -1,6 +1,8 @@
 // Configure dotenv
 require("dotenv").config();
 
+const FormatResponse = require("../service/format-response");
+
 const express = require("express"),
   router = express.Router(),
   refreshAccessToken = require("../middleware/refreshAccessToken"),
@@ -11,7 +13,10 @@ router.get("/", refreshAccessToken, async (req, res, next) => {
     access_token: res.locals.response.access_token,
   });
   const response = await spotifyApi.getTopArtists();
-  res.send(response.data);
+  const formattedResponse = FormatResponse.formatTopArtists(
+    response.data.items
+  );
+  res.send(formattedResponse);
 });
 
 module.exports = router;
