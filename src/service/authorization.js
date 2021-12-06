@@ -6,12 +6,21 @@ function Authorization() {
 }
 
 Authorization.prototype = {
+  /**
+   * Read more about scopes here.
+   * https://developer.spotify.com/documentation/general/guides/authorization/scopes/
+   * @param {string[]} scope
+   */
   addScope: function (scope) {
     this.scope.push(scope);
   },
 
   // TODO: add refreshAccessToken method
 
+  /**
+   *
+   * @param {string} authorizationCode
+   */
   getAccessToken: async function (authorizationCode) {
     const request = new HttpRequest("POST", ENDPOINTS.TOKEN);
     return request
