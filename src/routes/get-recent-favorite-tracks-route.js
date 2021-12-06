@@ -1,13 +1,20 @@
+require("dotenv").config();
+
+const ENDPOINTS = require("../endpoints");
+const refreshAccessToken = require("../middleware/refreshAccessToken");
+const SpotifyApi = require("../service/spotify-api");
+
 const express = require("express"),
-  router = express.Router(),
-  getRecentFavoriteTracks = require("../get-recent-favorite-tracks");
+  router = express.Router();
 
-router.get("/", async function (req, res) {
-  const data = await getRecentFavoriteTracks(process.env.ACCESS_TOKEN);
+router.get("/", refreshAccessToken, async function (req, res) {
+  const spotifyApi = new SpotifyApi({
+    access_token: res.locals.response.access_token,
+  });
 
-  if (data) {
-    res.json(data);
-  }
+  const response = await spotifyApi.getUserTracks();
+
+  return res.send(response.data);
 });
 
 module.exports = router;

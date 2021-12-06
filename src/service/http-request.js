@@ -1,6 +1,11 @@
 const axios = require("axios");
 const querystring = require("querystring");
 
+/**
+ *
+ * @param {string} method Http request type (note: GET or POST are currently supported )
+ * @param {string} url url of the request
+ */
 function HttpRequest(method, url) {
   this.request = {
     method,
