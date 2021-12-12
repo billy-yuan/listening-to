@@ -33,7 +33,7 @@ SpotifyApi.prototype = {
       .execute();
   },
 
-  getTopArtists: async function () {
+  getTopArtists: async function (limit = 16) {
     const httpRequest = new HttpRequest("GET", ENDPOINTS.TOP_ARTISTS);
 
     return httpRequest
@@ -41,6 +41,7 @@ SpotifyApi.prototype = {
         Authorization: `Bearer ${this.getAccessToken()}`,
         "Content-Type": "application/json",
       })
+      .addQueryParams({ limit })
       .execute();
   },
 };
