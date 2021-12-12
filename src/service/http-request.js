@@ -9,7 +9,7 @@ const querystring = require("querystring");
 function HttpRequest(method, url) {
   this.request = {
     method,
-    url,
+    url: new URL(url),
     headers: {},
   };
   this.queryParams = {};
@@ -17,7 +17,7 @@ function HttpRequest(method, url) {
 
 HttpRequest.prototype = {
   setUrl: function (url) {
-    this.request.url = url;
+    this.request.url = new URL(url);
     return this;
   },
 
@@ -29,6 +29,7 @@ HttpRequest.prototype = {
     for (let key in queryParams) {
       if (queryParams.hasOwnProperty(key)) {
         this.queryParams[key] = queryParams[key];
+        this.request.url.searchParams.append(key, queryParams[key]);
       }
     }
     return this;
@@ -65,7 +66,8 @@ HttpRequest.prototype = {
   },
 
   execute: async function () {
-    return axios(this.request)
+    const request = { ...this.request, url: this.request.url.href };
+    return axios(request)
       .then((res) => res)
       .catch((e) => e.response);
   },
